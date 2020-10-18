@@ -1,0 +1,11 @@
+## ckanext-hierarchy ##
+## ทำความเข้าใจการใช้งาน https://extensions.ckan.org/extension/hierarchy/ ##
+.  /usr/lib/ckan/default/bin/activate
+cd /usr/lib/ckan/default/src
+pip install -e "git+https://github.com/datagovuk/ckanext-hierarchy.git#egg=ckanext-hierarchy"
+## edit  file ckan.ini  ##
+sudo vi ckan.ini
+ckan.plugins  =  .....  scheming.group_schemas 
+##   *** เพิ่มต่อท้าย *** ##
+sudo service supervisor restart
+sudo service nginx restart
