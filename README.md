@@ -1,2 +1,2 @@
 # gdcthgov
-Government Data Catalog
+GDC: Government Data Catalog Project
