@@ -1,1 +1,65 @@
-
+## คำสั่งที่ใช้ในการติดตั้ง ##
+sudo ufw allow 22
+sudo ufw allow 80
+sudo ufw allow 8080
+sudo ufw allow 8800
+sudo ufw allow 8983
+sudo ufw allow 5432
+sudo ufw allow 6379
+sudo apt-get install python3-dev postgresql libpq-dev python3-pip python3-venv git-core solr-jetty openjdk-8-jdk redis-server
+sudo apt install -y solr-tomcat  
+mkdir -p ~/ckan/lib
+sudo ln -s ~/ckan/lib /usr/lib/ckan
+mkdir -p ~/ckan/etc
+sudo ln -s ~/ckan/etc /etc/ckan
+sudo mkdir -p /usr/lib/ckan/default
+sudo chown `whoami` /usr/lib/ckan/default
+python3 -m venv /usr/lib/ckan/default
+. /usr/lib/ckan/default/bin/activate
+pip install setuptools==44.1.0
+pip install --upgrade pip
+pip install -e 'git+https://github.com/ckan/ckan.git@ckan-2.9.0#egg=ckan[requirements]'
+deactivate
+. /usr/lib/ckan/default/bin/activate
+sudo -u postgres psql -l
+sudo -u postgres createuser -S -D -R -P ckan_default  
+sudo -u postgres createdb -O ckan_default ckan_default -E utf-8
+sudo mkdir -p /etc/ckan/default
+sudo chown -R `whoami` /etc/ckan/
+ckan generate config /etc/ckan/default/ckan.ini
+## Edit the ckan.ini ##
+   - sqlalchemy.url 
+   - ckan.site_id = tnsocatv2
+   - ckan.site_url = http://172.19.2.77
+sudo mv /etc/systemd/system/tomcat9.d /etc/systemd/system/tomcat9.service.d
+sudo systemctl daemon-reload
+sudo service tomcat9 restart
+## Edit Port in file /etc/tomcat9/server.xml  ##
+   sudo vi  /etc/tomcat9/server.xml
+   sudo mv /etc/solr/conf/schema.xml /etc/solr/conf/schema.xml.bak
+   sudo ln -s /usr/lib/ckan/default/src/ckan/ckan/config/solr/schema.xml /etc/solr/conf/schema.xml
+    sudo service tomcat9 restart
+## Edit ib file ckan.ini ##
+     solr_url=http://127.0.0.1:8983/solr
+ln -s /usr/lib/ckan/default/src/ckan/who.ini /etc/ckan/default/who.ini
+cd /usr/lib/ckan/default/src/ckan
+ckan -c /etc/ckan/default/ckan.ini db init
+cd /usr/lib/ckan/default/src/ckan
+ckan -c /etc/ckan/default/ckan.ini run
+ทดสอบ http://172.19.2.77:5000
+## Deployment ##
+## ดู  https://docs.ckan.org/en/2.9/maintaining/installing/deployment.html  ##
+sudo apt-get install nginx
+sudo cp /usr/lib/ckan/default/src/ckan/wsgi.py /etc/ckan/default/
+pip install uwsgi
+sudo cp /usr/lib/ckan/default/src/ckan/ckan-uwsgi.ini /etc/ckan/default/
+sudo apt-get install supervisor
+sudo service supervisor restart
+sudo vi /etc/supervisor/conf.d/ckan-uwsgi.conf 
+sudo vi /etc/nginx/sites-available/ckan
+sudo rm -vi /etc/nginx/sites-enabled/default
+sudo ln -s /etc/nginx/sites-available/ckan /etc/nginx/sites-enabled/ckan
+sudo cp /usr/lib/ckan/default/src/ckan/ckan/config/supervisor-ckan-worker.conf /etc/supervisor/conf.d
+sudo service nginx restart
+sudo service jetty restart
+reboot  system
