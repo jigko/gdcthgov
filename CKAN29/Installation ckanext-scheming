@@ -1,0 +1,11 @@
+## ckanext-scheming ##
+.  /usr/lib/ckan/default/bin/activate
+cd /usr/lib/ckan/default/src
+pip install -e "git+https://github.com/ckan/ckanext-scheming.git#egg=ckanext-scheming"
+pip install -r ckanext-scheming/requirements.txt
+## edit  file ckan.ini ##
+  sudo vi ckan.ini
+  ckan.plugins =  hierarchy_form
+python setup.py develop
+sudo service supervisor restart
+sudo service nginx restart
