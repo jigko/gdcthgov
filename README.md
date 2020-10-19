@@ -1,6 +1,9 @@
 # gdcthgov
 GDC: Government Data Catalog Project
 
+## NSO CKAN SITE Test ##
+http://agencyas.nso.go.th
+
 ##    Testing Plan    ##
 1. ckanext-scheming : https://github.com/ckan/ckanext-scheming
      - Install And Plugin (pass ckan 2.9)
