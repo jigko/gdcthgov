@@ -2,7 +2,7 @@
 GDC: Government Data Catalog Project
 
 ##    Testing Plan    ##
-1. ckanext-scheming : https://github.com/ckan/ckanext-scheming
+1.ckanext-scheming : https://github.com/ckan/ckanext-scheming
      - Install And Plugin (pass ckan 2.9)
      - Change Dataset Metadata (*** Now Test *** )
 2.ckanext-heirachy :  https://extensions.ckan.org/extension/hierarchy/
@@ -24,9 +24,9 @@ GDC: Government Data Catalog Project
 7.Files Loder : https://github.com/ckan/ckanext-xloader
      - Load Files To Datastore  
      - Helpme (.................)
-8. Report : https://github.com/davidread/ckanext-report
+8.Report : https://github.com/davidread/ckanext-report
      - Report
      - Helpme (.................)
-9. googleanalytics :https://github.com/ckan/ckanext-googleanalytics
+9.googleanalytics :https://github.com/ckan/ckanext-googleanalytics
      - Googleanalytics 
      - Helpme (.................)
