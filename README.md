@@ -30,6 +30,9 @@ http://agencyas.nso.go.th
 8. Report : https://github.com/davidread/ckanext-report
      - Report
      - Helpme (.................)
+9. Authen : https://extensions.ckan.org/extension/keycloak/
+     - Authen
+     - Helpme (.................)
 9. Googleanalytics :https://github.com/ckan/ckanext-googleanalytics
      - Googleanalytics 
      - Helpme (.................)
